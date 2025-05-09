@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://c5sp3ygjidvmf"]
+
+[ext_resource type="Script" uid="uid://b14p8teb06t0r" path="res://Crate.gd" id="1_e34xa"]
+[ext_resource type="Texture2D" uid="uid://d1f814kwugsec" path="res://assets/sokoban_tilesheet.png" id="2_p8q6l"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2gov2"]
+atlas = ExtResource("2_p8q6l")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ipday"]
+atlas = ExtResource("2_p8q6l")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tew53"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2gov2")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ipday")
+}],
+"loop": true,
+"name": &"reached",
+"speed": 5.0
+}]
+
+[node name="Create" type="Node2D" groups=["crates"]]
+script = ExtResource("1_e34xa")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_tew53")

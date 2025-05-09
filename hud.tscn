@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dkot0ubuxng12"]
+
+[ext_resource type="PackedScene" uid="uid://tj46dl6r34pj" path="res://level_bar.tscn" id="1_37p78"]
+
+[node name="HUD" type="CanvasLayer"]
+
+[node name="LevelBar" parent="." instance=ExtResource("1_37p78")]
