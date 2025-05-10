@@ -1,39 +1,11 @@
 extends Node2D
-@onready var map: TileMapLayer = $objects
+var SAVE_FILE='user://levels'
+@onready var map: TileMapLayer = $game_objects
 @onready var color_rect: ColorRect = $CanvasLayer/ColorRect
 
-var levels:Array=[
-'''
-000011100000
-000012100000
-000010111100
-001113032100
-001203911100
-001111310000
-000001210000
-000001110000
-000000000000
-000000000000
-000000000000
-000000000000
-''',
-'''
-001111100000
-001900100000
-001033101110
-001030101210
-001110111210
-000110000210
-000100010010
-000100011110
-000111110000
-000000000000
-000000000000
-000000000000
-''',
-]
-var CRATE =preload("res://Crate.tscn")
 
+var CRATE =preload("res://Crate.tscn")
+var levels=[]
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -43,6 +15,9 @@ func _ready() -> void:
 	change_level(0)
 	EventBus.next_level.connect(level_bar_change.bind(1))
 	EventBus.prev_level.connect(level_bar_change.bind(-1))
+	var read_file=FileAccess.open(SAVE_FILE,FileAccess.READ)
+	levels=read_file.get_var()
+	read_file.close()
 	
 func level_bar_change(level_change:int):	
 	var level=level_change+EventBus.current_level
@@ -61,21 +36,26 @@ func change_level(level:int):
 
 func _load_level(level:int):
 	map.clear()
+	for child in map.get_children():
+		child.queue_free()
+	if levels.size()<=0:
+		get_tree().change_scene_to_file("res://gameedit.tscn")
+
 	var current_level=level
-	var level_string:String=levels[current_level].strip_edges()
-	var level_lines=level_string.split('\n')	
-	for y in range(level_lines.size()):
-		for x in range(len(level_lines[y])):
-			if level_lines[y][x]=='0':
-				continue
-			if level_lines[y][x]=='1':
-				map.set_cell(Vector2i(x,y),1,Vector2i.ONE*6)		
-			if level_lines[y][x]=='2':
-				map.set_cell(Vector2i(x,y),1,Vector2i(1,3))			
-			if level_lines[y][x]=='3':
-				map.set_cell(Vector2i(x,y),2,Vector2i.ZERO,2)
-			if level_lines[y][x]=='9':
-				map.set_cell(Vector2i(x,y),2,Vector2i.ZERO,1)
+	var level_file=FileAccess.open(levels[current_level],FileAccess.READ)
+	var cell_dict=level_file.get_var()
+	level_file.close()
+	for tile_data in cell_dict:
+		for cell in tile_data.cells:
+			if map.tile_set.get_source(tile_data.source_id) is  TileSetScenesCollectionSource:
+				var p=map.tile_set.get_source(tile_data.source_id).get_scene_tile_scene(tile_data.scene_id).instantiate()
+				p.position=map.map_to_local(cell)
+				map.add_child(p)
+				p.move_to(cell)
+			else:
+				map.set_cell(cell,tile_data.source_id,tile_data.coords,tile_data.scene_id)
+			
+			
 	var tweeen=create_tween()
 	tweeen.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
 	tweeen.tween_property(self,'scale',Vector2.ONE,0.2).from(Vector2.ONE*1.05)

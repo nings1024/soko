@@ -1,31 +1,34 @@
 class_name Player
 extends "res://game_object.gd"
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
-
+var scene_place=0
 var astar2D=AStarGrid2D.new()
 var nav_path=[]
-
 func _ready() -> void:
-	animated_sprite_2d.play("move_down")
-	astar2D.region=map.get_used_rect()
-	astar2D.diagonal_mode=AStarGrid2D.DIAGONAL_MODE_NEVER
-	astar2D.update()
-	for cell in map.get_used_cells():
-		if is_wall(cell):
-			astar2D.set_point_solid(cell)
-	
+	if get_parent().name!='game_objects':
+		scene_place=1
+	else:
+		astar2D.region=map.get_used_rect()
+		astar2D.diagonal_mode=AStarGrid2D.DIAGONAL_MODE_NEVER
+		astar2D.update()
+		for cell in map.get_used_cells():
+			if is_wall(cell):
+				astar2D.set_point_solid(cell)
+		
 
 func _process(delta: float) -> void:
+	if scene_place==1:
+		return 
 	if Input.is_action_just_pressed("nav"):
+		
 		var dest=map.local_to_map(map.to_local(get_global_mouse_position()))
 		if not is_wall(dest):
 			astar2D.fill_weight_scale_region(astar2D.region,1)
 			for crate:Crate in get_tree().get_nodes_in_group('crates'):
-				astar2D.set_point_weight_scale(crate.cell_position,8)
+				astar2D.set_point_weight_scale(crate.cell_position,80)
 			nav_path=astar2D.get_id_path(cell_position,dest)
 			if nav_path:
 				nav_path.remove_at(0)
-			print(nav_path)
 	if tween and tween.is_running():
 		return 
 	if nav_path and len(nav_path)>0:
@@ -66,6 +69,3 @@ func try_move(dir: Vector2i)->bool:
 		move_to(dest)
 		return true
 	return false
-
-func get_show():
-	return animated_sprite_2d.sprite_frames.get_frame_texture('default',1)

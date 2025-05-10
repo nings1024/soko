@@ -16,5 +16,5 @@ func move_to(cell: Vector2i):
 		EventBus.crate_reached.emit()
 	else:
 		is_reached=false
-func get_show():
-	return animated_sprite_2d.sprite_frames.get_frame_texture('default',1)
+func _ready() -> void:
+	call_deferred("move_to",cell_position)

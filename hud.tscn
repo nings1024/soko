@@ -5,3 +5,15 @@
 [node name="HUD" type="CanvasLayer"]
 
 [node name="LevelBar" parent="." instance=ExtResource("1_37p78")]
+
+[node name="Edit" type="Button" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -94.0
+offset_right = 132.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 44
+text = "编辑"
+
+[connection signal="pressed" from="Edit" to="LevelBar" method="_on_edit_pressed"]
