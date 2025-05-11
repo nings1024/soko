@@ -167,10 +167,11 @@ func _on_button_pressed() -> void:
 	save_file_write.close()
 	current_level=level_array.size()
 	text_edit.text=str(current_level)
+	_on_clear_pressed()
 		
 func _on_load_pressed() -> void:
 	if FileAccess.file_exists("user://level/"+text_edit.text):
-		place.clear()
+		_on_clear_pressed()
 		var level_file=FileAccess.open("user://level/"+text_edit.text,FileAccess.READ)
 		var dict=level_file.get_var()
 		level_file.close()

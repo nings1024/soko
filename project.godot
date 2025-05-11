@@ -30,6 +30,10 @@ window/stretch/mode="canvas_items"
 
 enabled=PackedStringArray("res://addons/grid_display/plugin.cfg")
 
+[gui]
+
+theme/custom_font="uid://blbcgfx2qmvv2"
+
 [input]
 
 move_up={
