@@ -1,8 +1,14 @@
-[gd_resource type="TileSet" load_steps=6 format=3 uid="uid://dgy3y26glvfn2"]
+[gd_resource type="TileSet" load_steps=8 format=3 uid="uid://dgy3y26glvfn2"]
 
+[ext_resource type="Texture2D" uid="uid://d4by4x5cudbpu" path="res://assets/clear.png" id="1_av3ks"]
 [ext_resource type="Texture2D" uid="uid://d1f814kwugsec" path="res://assets/sokoban_tilesheet.png" id="1_ywh3n"]
 [ext_resource type="PackedScene" uid="uid://b4l85xvgen3ea" path="res://player.tscn" id="2_mrsv0"]
 [ext_resource type="PackedScene" uid="uid://c5sp3ygjidvmf" path="res://Crate.tscn" id="3_av3ks"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0x4yw"]
+texture = ExtResource("1_av3ks")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_e2o6t"]
 texture = ExtResource("1_ywh3n")
@@ -126,3 +132,4 @@ custom_data_layer_1/name = "is_dest"
 custom_data_layer_1/type = 1
 sources/1 = SubResource("TileSetAtlasSource_e2o6t")
 sources/2 = SubResource("TileSetScenesCollectionSource_0x4yw")
+sources/0 = SubResource("TileSetAtlasSource_0x4yw")

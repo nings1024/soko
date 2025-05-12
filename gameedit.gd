@@ -66,6 +66,11 @@ func _process(delta: float) -> void:
 						p.position=place.map_to_local(cell_pos)
 						place.add_child(p)
 						p.set_meta('tile_position',select)
+				elif select.source_id==0:
+					for child in place.get_children():
+						if place.local_to_map(child.position)==cell_pos:
+							place.remove_child(child)
+					place.set_cell(cell_pos,-1)	
 				else:	
 					place.set_cell(cell_pos,select.source_id,select.coords,select.scene_id)
 			if Input.is_action_pressed("disselect"):

@@ -15,7 +15,7 @@ tile_set = ExtResource("2_bcled")
 tile_set = ExtResource("2_bcled")
 
 [node name="SelectItem" type="TileMapLayer" parent="."]
-tile_map_data = PackedByteArray("AAABABEAAgAAAAAAAQADABEAAQAGAAYAAAAFABEAAgAAAAAAAgAHABEAAQABAAMAAAA=")
+tile_map_data = PackedByteArray("AAABABEAAgAAAAAAAQADABEAAQAGAAYAAAAFABEAAgAAAAAAAgAHABEAAQABAAMAAAAJABEAAAAAAAAAAAA=")
 tile_set = ExtResource("2_bcled")
 
 [node name="Grid Display" type="Node2D" parent="."]
