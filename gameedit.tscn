@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=4 uid="uid://bi8ot4lmjgftm"]
 
-[ext_resource type="Script" uid="uid://bvh5wvp7yna6q" path="res://gameedit.gd" id="1_bcled"]
+[ext_resource type="Script" uid="uid://bd6x2l2mbk0q8" path="res://gameedit.gd" id="1_bcled"]
 [ext_resource type="Script" uid="uid://b2uydhpu634db" path="res://addons/grid_display/grid_display.gd" id="2_40ihf"]
 [ext_resource type="TileSet" uid="uid://dgy3y26glvfn2" path="res://sokoban.tres" id="2_bcled"]
 

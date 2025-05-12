@@ -7,8 +7,8 @@
 *.converted.*
 *.translation
 *.godot
-*.godot-export-*   # optional export files
-*.uid              # Godot 4 的资源唯一 ID
+*.godot-export-*
+*.uid         
 
 # System files
 .DS_Store
