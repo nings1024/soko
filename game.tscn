@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=4 uid="uid://dtdbm7f8frc3m"]
 
 [ext_resource type="TileSet" uid="uid://dgy3y26glvfn2" path="res://sokoban.tres" id="1_80nbo"]
-[ext_resource type="Script" uid="uid://clre4x3qreen2" path="res://game.gd" id="1_e2o6t"]
+[ext_resource type="Script" uid="uid://dh7gq8n31f0mp" path="res://game.gd" id="1_e2o6t"]
 [ext_resource type="PackedScene" uid="uid://dkot0ubuxng12" path="res://hud.tscn" id="3_feb5d"]
 [ext_resource type="Script" uid="uid://b2uydhpu634db" path="res://addons/grid_display/grid_display.gd" id="4_fc0e3"]
 

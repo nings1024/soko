@@ -1,5 +1,5 @@
 extends Node2D
-var SAVE_FILE='user://levels'
+var SAVE_FILE='res://levels'
 @onready var map: TileMapLayer = $game_objects
 @onready var color_rect: ColorRect = $CanvasLayer/ColorRect
 
@@ -17,6 +17,8 @@ func _ready() -> void:
 		levels=read_file.get_var()
 		read_file.close()
 	change_level(0)
+	print(FileAccess.file_exists(SAVE_FILE))
+	
 	EventBus.next_level.connect(level_bar_change.bind(1))
 	EventBus.prev_level.connect(level_bar_change.bind(-1))
 
@@ -44,7 +46,7 @@ func _load_level(level:int):
 		get_tree().change_scene_to_file("res://gameedit.tscn")
 	else:
 		var current_level=level
-		var level_file=FileAccess.open(levels[current_level],FileAccess.READ)
+		var level_file=FileAccess.open(levels[current_level].replace('user','res')+'.bin',FileAccess.READ)
 		var cell_dict=level_file.get_var()
 		level_file.close()
 		for tile_data in cell_dict:
