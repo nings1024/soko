@@ -2,6 +2,7 @@
 .import/
 .export/
 .godot/
+build/
 *.import
 *.tmp
 *.converted.*
