@@ -11,10 +11,17 @@ var is_reached:bool=false:
 
 func move_to(cell: Vector2i):
 	super(cell)
-	if is_dest(cell):
-		is_reached=true
-		EventBus.crate_reached.emit()
-	else:
-		is_reached=false
+	check_reached()
+	if is_reached:
+		tween.finished.connect(func():EventBus.crate_reached.emit(),CONNECT_ONE_SHOT)
+	
+
 func _ready() -> void:
 	call_deferred("move_to",cell_position)
+
+
+func check_reached():
+	if is_dest(cell_position):
+		is_reached=true
+	else:
+		is_reached=false

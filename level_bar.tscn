@@ -14,11 +14,13 @@ offset_right = 58.0
 offset_bottom = -26.0
 grow_horizontal = 2
 grow_vertical = 0
+size_flags_horizontal = 0
 script = ExtResource("1_ajfem")
 
 [node name="prev" type="Button" parent="."]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
+size_flags_vertical = 8
 theme_override_font_sizes/font_size = 30
 text = "上一关"
 

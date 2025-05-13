@@ -4,7 +4,9 @@ extends "res://game_object.gd"
 var scene_place=0
 var astar2D=AStarGrid2D.new()
 var nav_path=[]
+var undo_redo = UndoRedo.new()
 func _ready() -> void:
+	EventBus.undo_move.connect(_undo_move)
 	if get_parent().name!='game_objects':
 		scene_place=1
 	else:
@@ -20,7 +22,6 @@ func _process(delta: float) -> void:
 	if scene_place==1:
 		return 
 	if Input.is_action_just_pressed("nav"):
-		
 		var dest=map.local_to_map(map.to_local(get_global_mouse_position()))
 		if not is_wall(dest):
 			astar2D.fill_weight_scale_region(astar2D.region,1)
@@ -38,6 +39,8 @@ func _process(delta: float) -> void:
 	var input = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	if input != Vector2.ZERO:
 		try_move(input.round())
+	if Input.is_action_just_pressed("undo"):
+		undo_redo.undo()
 
 # 移动处理函数
 func try_move(dir: Vector2i)->bool:
@@ -60,12 +63,15 @@ func try_move(dir: Vector2i)->bool:
 	if crate:
 		var crate_dest = dest + dir
 		# 如果箱子的目标位置没有墙、没有玩家并且没有其他箱子
-		if !is_wall(crate_dest) and !is_player(crate_dest) and !get_crate(crate_dest):
-			crate.move_to(crate_dest)
-			move_to(dest)
-			return true
-	else:
-		# 如果没有箱子，直接移动
-		move_to(dest)
-		return true
-	return false
+		if is_wall(crate_dest) or is_player(crate_dest) or get_crate(crate_dest):
+			return false
+	undo_redo.create_action('move')			
+	if crate:
+		undo_redo.add_do_method(crate.move_to.bind(dest+dir))
+		undo_redo.add_undo_method(crate.move_to.bind(dest))
+	undo_redo.add_do_method(move_to.bind(dest))
+	undo_redo.add_undo_method(move_to.bind(cell_position))
+	undo_redo.commit_action()
+	return true
+func _undo_move():
+	undo_redo.undo()

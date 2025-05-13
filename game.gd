@@ -2,11 +2,12 @@ extends Node2D
 var SAVE_FILE='res://levels'
 @onready var map: TileMapLayer = $game_objects
 @onready var color_rect: ColorRect = $CanvasLayer/ColorRect
+@onready var level_complete_panel: CanvasLayer = $"../LevelCompletePanel"
 
 
 var CRATE =preload("res://Crate.tscn")
 var levels=[]
-
+var undo_redo = UndoRedo.new()
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
@@ -17,11 +18,14 @@ func _ready() -> void:
 		levels=read_file.get_var()
 		read_file.close()
 	change_level(0)
-	print(FileAccess.file_exists(SAVE_FILE))
 	
 	EventBus.next_level.connect(level_bar_change.bind(1))
 	EventBus.prev_level.connect(level_bar_change.bind(-1))
-
+	EventBus.reset_level.connect(_on_reset_level)
+	EventBus.game_sucess.connect(func():
+		level_complete_panel.show()
+		get_tree().paused=true
+	)
 	
 func level_bar_change(level_change:int):	
 	var level=level_change+EventBus.current_level
@@ -71,3 +75,21 @@ func _load_level(level:int):
 		map.position=map.position-((used_rect.position)*64.0*16.0/max_width)+$"Grid Display".position
 		$"Grid Display".scale=map.scale
 		$"Grid Display".grid_size=Vector2.ONE*max_width
+
+func _on_reset_level():
+	change_level(EventBus.current_level)	
+
+
+
+
+func do_something():
+	print(1)
+
+func undo_something():
+	print(2)
+
+func _on_my_button_pressed():
+	undo_redo.create_action("移动节点")
+	undo_redo.add_do_method(do_something)
+	undo_redo.add_undo_method(undo_something)
+	undo_redo.commit_action()

@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://c5sp3ygjidvmf"]
 
 [ext_resource type="Script" uid="uid://b14p8teb06t0r" path="res://Crate.gd" id="1_e34xa"]
-[ext_resource type="Texture2D" uid="uid://bbdfds7nll1i" path="res://assets/sokoban_tilesheet.png" id="2_p8q6l"]
+[ext_resource type="Texture2D" uid="uid://d1f814kwugsec" path="res://assets/sokoban_tilesheet.png" id="2_p8q6l"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2gov2"]
 atlas = ExtResource("2_p8q6l")

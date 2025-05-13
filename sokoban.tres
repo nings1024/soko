@@ -1,7 +1,7 @@
 [gd_resource type="TileSet" load_steps=8 format=3 uid="uid://dgy3y26glvfn2"]
 
-[ext_resource type="Texture2D" uid="uid://1206jqaxrd3p" path="res://assets/clear.png" id="1_av3ks"]
-[ext_resource type="Texture2D" uid="uid://bbdfds7nll1i" path="res://assets/sokoban_tilesheet.png" id="1_ywh3n"]
+[ext_resource type="Texture2D" uid="uid://d4by4x5cudbpu" path="res://assets/clear.png" id="1_av3ks"]
+[ext_resource type="Texture2D" uid="uid://d1f814kwugsec" path="res://assets/sokoban_tilesheet.png" id="1_ywh3n"]
 [ext_resource type="PackedScene" uid="uid://b4l85xvgen3ea" path="res://player.tscn" id="2_mrsv0"]
 [ext_resource type="PackedScene" uid="uid://c5sp3ygjidvmf" path="res://Crate.tscn" id="3_av3ks"]
 
